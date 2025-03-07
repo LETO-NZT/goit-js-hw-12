@@ -1,1 +1,1 @@
-Home work JS 12
+# GoIt-JS-HW-12

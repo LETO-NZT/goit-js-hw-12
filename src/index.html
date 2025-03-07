@@ -2,30 +2,31 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Image Search</title>
+    <title>Homework - JAVA SCRIPT - 12</title>
+
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
     <link rel="stylesheet" href="./css/styles.css" />
   </head>
   <body>
-    <form class="form">
+    <form class="wrapper" id="search-form">
       <input
         type="text"
-        class="form-input"
         id="search-input"
-        name="search-query"
+        name="query"
         placeholder="Search images..."
       />
-      <button type="submit" class="sub-btn">Search</button>
+      <button type="submit" data-search>Search</button>
     </form>
+    <div class="wrapper js-loader"></div>
 
     <ul class="gallery"></ul>
-    <button type="button" class="sub-loader hidden">Load more</button>
-    <div class="loader hidden">
-      <span class="loading"> </span> Loading images, please wait......
-    </div>
-    <div class="end-message hidden">
-      We're sorry, but you've reached the end of search results.
+
+    <div class="wrapper">
+      <button class="load-btn hidden" type="submit">Load more</button>
     </div>
 
     <script type="module" src="./main.js"></script>
