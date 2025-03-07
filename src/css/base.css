@@ -82,7 +82,7 @@ button:hover {
   visibility: hidden;
 }
 
-.wrapper {
+.form {
   display: flex;
   gap: 8px;
   justify-content: center;
