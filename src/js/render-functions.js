@@ -1,60 +1,52 @@
 import SimpleLightbox from 'simplelightbox';
 import 'simplelightbox/dist/simple-lightbox.min.css';
 
-const lightbox = new SimpleLightbox('.gallery a', {
-  captions: true,
-  captionsData: 'alt',
-  captionDelay: 250,
-});
 const gallery = document.querySelector('.gallery');
+let lightbox = null;
 
-export function showGallery(images) {
-  const galleryMarkup = images
+
+export function renderImages(images) {
+  const markup = images
     .map(
       ({
-        largeImageURL,
         webformatURL,
+        largeImageURL,
         tags,
         likes,
         views,
         comments,
         downloads,
-      }) =>
-        `<li class="gallery-item">
-        <a class="gallery-link" href="${largeImageURL}">
-          <img
-            class="gallery-image"
-            src="${webformatURL}"
-            alt="${tags}"
-          />
-        </a>
-        <ul class="image-info">
-          <li>
-            <h5>Likes</h5>
-            <p>${likes}</p>
-          </li>
-          <li>
-            <h5>Views</h5>
-            <p>${views}</p>
-          </li>
-          <li>
-            <h5>Comments</h5>
-            <p>${comments}</p></p>
-          </li>
-          <li>
-            <h5>Downloads</h5>
-            <p>${downloads}</p>
-          </li>
-        </ul>
-      </li>`
+      }) => `
+            <li class="gallery-item">
+                    <a href="${largeImageURL}" class="gallery">
+                    <img class="gallery-image" src="${webformatURL}" alt="${tags}">
+                    </a>
+                
+
+                <div class="info">
+                    <p><b>Likes:</b> ${likes}</p>
+                    <p><b>Views:</b> ${views}</p>
+                    <p><b>Comments:</b> ${comments}</p>
+                    <p><b>Downloads:</b> ${downloads}</p>
+                </div>
+            </li>
+        `
     )
     .join('');
 
-  gallery.insertAdjacentHTML('beforeend', galleryMarkup);
-
-  lightbox.refresh();
+  gallery.insertAdjacentHTML('beforeend', markup);
+  if (!lightbox) {
+    lightbox = new SimpleLightbox('.gallery a');
+  } else {
+    lightbox.refresh();
+  }
+  
 }
 
 export function clearGallery() {
   gallery.innerHTML = '';
+  if (lightbox) {
+    lightbox.destroy();
+    lightbox = null;
+  }
 }

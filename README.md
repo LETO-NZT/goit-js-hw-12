@@ -1,1 +1,1 @@
-# GOIT-JAVA-SCRIPT-HOMEWORK-12
+HomeWork JavaScript 12
