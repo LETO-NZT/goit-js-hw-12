@@ -2,37 +2,31 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Homework - JAVA SCRIPT - 12</title>
-    <link
-      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap"
-      rel="stylesheet"
-    />
+    <title>Homework JavaScript 12</title>
     <script type="module" crossorigin src="/goit-js-hw-12/index.js"></script>
-    <link rel="modulepreload" crossorigin href="/goit-js-hw-12/assets/vendor-D9tHNiur.js">
-    <link rel="stylesheet" crossorigin href="/goit-js-hw-12/assets/vendor-DumFYO8Z.css">
-    <link rel="stylesheet" crossorigin href="/goit-js-hw-12/assets/index-vwvrAWjM.css">
+    <link rel="modulepreload" crossorigin href="/goit-js-hw-12/assets/vendor-KnZd4sWe.js">
+    <link rel="stylesheet" crossorigin href="/goit-js-hw-12/assets/vendor-CWKLx11g.css">
+    <link rel="stylesheet" crossorigin href="/goit-js-hw-12/assets/index-4SLe7X3H.css">
   </head>
   <body>
-    <!-- Изменено: класс "wrapper" заменён на "form" -->
-    <form class="form" id="search-form">
-      <input
-        type="text"
-        id="search-input"
-        name="query"
-        placeholder="Search images..."
-      />
-      <button type="submit" data-search>Search</button>
-    </form>
-    
-    <!-- Изменено: добавлены оба класса "loader" и "js-loader" -->
-    <div class="loader js-loader"></div>
-
-    <ul class="gallery"></ul>
-
-    <div class="wrapper">
-      <button class="load-btn hidden" type="submit">Load more</button>
-    </div>
+    <main>
+      <div class="container">
+        <form class="search-form">
+          <input
+            type="text"
+            name="searchQuery"
+            class="search-input"
+            placeholder="Search images..."
+          />
+          <button type="submit" class="search-btn">Search</button>
+        </form>
+      </div>
+      <ul class="gallery"></ul>
+      <div class="loader"></div>
+      <button class="load-more hidden">Load more....</button>
+    </main>
 
   </body>
 </html>
