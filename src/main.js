@@ -5,7 +5,10 @@ import "izitoast/dist/css/iziToast.min.css";
 
 const form = document.querySelector('.form');
 const gallery = document.querySelector('.gallery');
-const loadMoreBtn = document.querySelector('.load-more');
+// const loadMoreBtn = document.querySelector('.load-more');
+const loadMoreBtn = Array.from(document.querySelectorAll('button'))
+  .find(btn => btn.textContent.trim() === 'Load More');
+
 const loader = document.querySelector('.loader');
 
 let currentPage = 1;
