@@ -7,18 +7,26 @@ const form = document.querySelector('.form');
 const gallery = document.querySelector('.gallery');
 // const loadMoreBtn = document.querySelector('.load-more');
 // -----------------------------------------------------------------------------
-// Находим кнопку Load More по тексту
-const loadMoreBtn = Array.from(document.querySelectorAll('button'))
-  .find(btn => btn.textContent.trim() === 'Load More');
+document.addEventListener("DOMContentLoaded", () => {
+  // Находим кнопку по текстовому содержимому "Load More"
+  const loadMoreBtnElement = Array.from(document.querySelectorAll('button'))
+    .find(btn => btn.textContent.trim() === 'Load More');
 
-if (loadMoreBtn) {
-  // Добавляем класс, чтобы сделать кнопку видимой в нужный момент
-  loadMoreBtn.classList.add('load-more', 'visible');
+  // Добавляем нужный класс для работы функционала, если кнопка найдена
+  if (loadMoreBtnElement) {
+    loadMoreBtnElement.classList.add('load-more');
+  }
 
-  loadMoreBtn.addEventListener('click', () => {
-    console.log('Load More clicked');
-  });
-}
+  // Теперь наш селектор сработает, как и ожидалось
+  const loadMoreBtn = document.querySelector('.load-more');
+  if (loadMoreBtn) {
+    loadMoreBtn.addEventListener('click', () => {
+      console.log('Load More clicked');
+      // Здесь разместите ваш код для загрузки дополнительных изображений
+    });
+  }
+});
+
 
 // ---------------------------------------------------------------------------------------
 
