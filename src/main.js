@@ -5,18 +5,44 @@ import "izitoast/dist/css/iziToast.min.css";
 
 const form = document.querySelector('.form');
 const gallery = document.querySelector('.gallery');
-const loadMoreBtn = document.querySelector('.load-more');
-
-// // Выбираем функциональную кнопку, которая имеет класс .load-more
 // const loadMoreBtn = document.querySelector('.load-more');
+-----------------------------------------------------------------------------
+document.addEventListener("DOMContentLoaded", () => {
+  // Находим кнопку по текстовому содержимому "Load More"
+  const loadMoreBtnElement = Array.from(document.querySelectorAll('button'))
+    .find(btn => btn.textContent.trim() === 'Load More');
 
-// if (loadMoreBtn) {
-//   loadMoreBtn.addEventListener('click', () => {
-//     console.log('Load More clicked');
-//     // Ваш функционал для загрузки дополнительных изображений
-//   });
-// }
+  // Если кнопка найдена, добавляем ей классы "load-more" для стилей и "hidden", чтобы скрыть её
+  if (loadMoreBtnElement) {
+    loadMoreBtnElement.classList.add('load-more', 'hidden');
+  }
 
+  // Теперь выбираем элемент с классом .load-more для функционала
+  const loadMoreBtn = document.querySelector('.load-more');
+  if (loadMoreBtn) {
+    loadMoreBtn.addEventListener('click', () => {
+      console.log('Load More clicked');
+      // Ваш функционал для загрузки дополнительных изображений
+    });
+  }
+
+  // Пример: когда определяется, что есть ещё изображения, вызываем функцию для показа кнопки
+  // Например, updateLoadMoreVisibility(true);
+});
+
+/* Функция для обновления видимости кнопки Load More */
+function updateLoadMoreVisibility(hasMore) {
+  const btn = document.querySelector('.load-more');
+  if (btn) {
+    if (hasMore) {
+      btn.classList.remove('hidden');
+    } else {
+      btn.classList.add('hidden');
+    }
+  }
+}
+
+----------------------------------------------------------------------
 
 const loader = document.querySelector('.loader');
 
