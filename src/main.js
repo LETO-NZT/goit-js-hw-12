@@ -5,30 +5,8 @@ import "izitoast/dist/css/iziToast.min.css";
 
 const form = document.querySelector('.form');
 const gallery = document.querySelector('.gallery');
-// const loadMoreBtn = document.querySelector('.load-more');
-// -----------------------------------------------------------------------------
-document.addEventListener("DOMContentLoaded", () => {
-  // Находим кнопку по текстовому содержимому "Load More"
-  const loadMoreBtnElement = Array.from(document.querySelectorAll('button'))
-    .find(btn => btn.textContent.trim() === 'Load More');
+const loadMoreBtn = document.querySelector('.load-more');
 
-  // Добавляем нужный класс для работы функционала, если кнопка найдена
-  if (loadMoreBtnElement) {
-    loadMoreBtnElement.classList.add('load-more');
-  }
-
-  // Теперь наш селектор сработает, как и ожидалось
-  const loadMoreBtn = document.querySelector('.load-more');
-  if (loadMoreBtn) {
-    loadMoreBtn.addEventListener('click', () => {
-      console.log('Load More clicked');
-      // Здесь разместите ваш код для загрузки дополнительных изображений
-    });
-  }
-});
-
-
-// ---------------------------------------------------------------------------------------
 
 const loader = document.querySelector('.loader');
 
