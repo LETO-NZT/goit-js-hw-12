@@ -100,7 +100,7 @@ body {
   margin: 0 auto;
 }
 
-.load-more {
+/* .load-more {
   display: flex;
   margin-inline: auto;
   background-color: #4e75ff;
@@ -113,6 +113,23 @@ body {
 }
 
 .load-more:hover {
+  background-color: #3d65e2;
+} */
+
+/* Стили для кнопки Load More: выбираем все кнопки, которые НЕ имеют класс search-button */
+button:not(.search-button) {
+  display: flex;
+  margin-inline: auto;
+  background-color: #4e75ff;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  padding: 8px 16px;
+  transition: 250ms cubic-bezier(0.455, 0.03, 0.515, 0.955);
+}
+
+button:not(.search-button):hover {
   background-color: #3d65e2;
 }
 
