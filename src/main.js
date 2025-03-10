@@ -6,17 +6,21 @@ import "izitoast/dist/css/iziToast.min.css";
 const form = document.querySelector('.form');
 const gallery = document.querySelector('.gallery');
 // const loadMoreBtn = document.querySelector('.load-more');
-
+// -----------------------------------------------------------------------------
+// Находим кнопку Load More по тексту
 const loadMoreBtn = Array.from(document.querySelectorAll('button'))
   .find(btn => btn.textContent.trim() === 'Load More');
 
 if (loadMoreBtn) {
+  // Добавляем класс, чтобы сделать кнопку видимой в нужный момент
+  loadMoreBtn.classList.add('load-more', 'visible');
+
   loadMoreBtn.addEventListener('click', () => {
-    // функционал для кнопки "Load More"
     console.log('Load More clicked');
   });
 }
 
+// ---------------------------------------------------------------------------------------
 
 const loader = document.querySelector('.loader');
 
