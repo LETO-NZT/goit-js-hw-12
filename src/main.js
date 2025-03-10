@@ -5,7 +5,17 @@ import "izitoast/dist/css/iziToast.min.css";
 
 const form = document.querySelector('.form');
 const gallery = document.querySelector('.gallery');
+// const loadMoreBtn = document.querySelector('.load-more');
+
+// Выбираем функциональную кнопку, которая имеет класс .load-more
 const loadMoreBtn = document.querySelector('.load-more');
+
+if (loadMoreBtn) {
+  loadMoreBtn.addEventListener('click', () => {
+    console.log('Load More clicked');
+    // Ваш функционал для загрузки дополнительных изображений
+  });
+}
 
 
 const loader = document.querySelector('.loader');
