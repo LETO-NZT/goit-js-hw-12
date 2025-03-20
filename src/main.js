@@ -3,9 +3,8 @@ import { renderImages, clearGallery } from './js/render-functions.js';
 import iziToast from "izitoast";
 import "izitoast/dist/css/iziToast.min.css";
 
-const form = document.querySelector('.search-form');
+const form = document.querySelector('.form');
 const gallery = document.querySelector('.gallery');
-const loadMoreBtn = document.querySelector('.load-more');
 const loader = document.querySelector('.loader');
 
 let currentPage = 1;
@@ -13,7 +12,17 @@ let currentQuery = '';
 let totalHits = 0;
 const perPage = 40;
 
-form.addEventListener('submit', (event) => {
+// Находим кнопку с текстом "Load More" и добавляем нужные классы
+const loadMoreBtnElement = Array.from(document.querySelectorAll('button'))
+  .find(btn => btn.textContent.trim() === 'Load More');
+
+if (loadMoreBtnElement) {
+  loadMoreBtnElement.classList.add('load-more', 'hidden');
+}
+
+const loadMoreBtn = document.querySelector('.load-more');
+
+form.addEventListener('submit', async (event) => {
   event.preventDefault();
   currentQuery = event.target.searchQuery.value.trim();
   currentPage = 1;
