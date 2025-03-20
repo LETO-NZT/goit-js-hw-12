@@ -10,7 +10,7 @@ const loader = document.querySelector('.loader');
 let currentPage = 1;
 let currentQuery = '';
 let totalHits = 0;
-const perPage = 40;
+const perPage = 15;
 
 // Находим кнопку с текстом "Load More" и добавляем нужные классы
 const loadMoreBtnElement = Array.from(document.querySelectorAll('button'))
