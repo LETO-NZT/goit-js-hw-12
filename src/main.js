@@ -13,7 +13,7 @@ let currentQuery = '';
 let totalHits = 0;
 const perPage = 40;
 
-form.addEventListener('submit', async (event) => {
+form.addEventListener('submit', (event) => {
   event.preventDefault();
   currentQuery = event.target.searchQuery.value.trim();
   currentPage = 1;
@@ -27,39 +27,45 @@ form.addEventListener('submit', async (event) => {
   loadMoreBtn.classList.add('hidden');
   loader.classList.remove('hidden');
 
-  try {
-    const data = await fetchImages(currentQuery, currentPage, perPage);
-    totalHits = data.totalHits;
-    
-    if (data.hits.length === 0) {
-      iziToast.error({ message: 'Sorry, there are no images matching your search query. Please try again!' });
-      return;
+  // Позволяем браузеру отобразить лоадер
+  setTimeout(async () => {
+    try {
+      const data = await fetchImages(currentQuery, currentPage, perPage);
+      totalHits = data.totalHits;
+      
+      if (data.hits.length === 0) {
+        iziToast.error({ message: 'Sorry, there are no images matching your search query. Please try again!' });
+        return;
+      }
+      
+      renderImages(data.hits);
+      checkLoadMore(data);
+    } catch (error) {
+      iziToast.error({ message: error.message });
+    } finally {
+      loader.classList.add('hidden');
     }
-    
-    renderImages(data.hits);
-    checkLoadMore(data);
-  } catch (error) {
-    iziToast.error({ message: error.message });
-  } finally {
-    loader.classList.add('hidden');
-  }
+  }, 0);
 });
 
-loadMoreBtn.addEventListener('click', async () => {
+loadMoreBtn.addEventListener('click', () => {
   currentPage++;
   loader.classList.remove('hidden');
   loadMoreBtn.classList.add('hidden');
 
-  try {
-    const data = await fetchImages(currentQuery, currentPage, perPage);
-    renderImages(data.hits);
-    checkLoadMore(data);
-    smoothScroll();
-  } catch (error) {
-    iziToast.error({ message: error.message });
-  } finally {
-    loader.classList.add('hidden');
-  }
+  // Обновление лоадера перед выполнением запроса
+  setTimeout(async () => {
+    try {
+      const data = await fetchImages(currentQuery, currentPage, perPage);
+      renderImages(data.hits);
+      checkLoadMore(data);
+      smoothScroll();
+    } catch (error) {
+      iziToast.error({ message: error.message });
+    } finally {
+      loader.classList.add('hidden');
+    }
+  }, 0);
 });
 
 function checkLoadMore(data) {
@@ -82,6 +88,3 @@ function smoothScroll() {
     });
   }
 }
-
-
-
