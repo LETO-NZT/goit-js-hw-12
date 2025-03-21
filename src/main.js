@@ -1,99 +1,106 @@
-import { fetchImages } from './js/pixabay-api.js';
-import { renderImages, clearGallery } from './js/render-functions.js';
-import iziToast from "izitoast";
-import "izitoast/dist/css/iziToast.min.css";
+import { getData } from './js/pixebay-api';
+import { getPhotos } from './js/render-functions';
+import iziToast from 'izitoast';
+import 'izitoast/dist/css/iziToast.min.css';
+import SimpleLightbox from 'simplelightbox';
+import 'simplelightbox/dist/simple-lightbox.min.css';
 
-const form = document.querySelector('.form');
-const gallery = document.querySelector('.gallery');
+export const gallery = document.querySelector('.gallery');
+export const loadMoreButton = document.createElement('button');
 const loader = document.querySelector('.loader');
+loader.style.display = 'none';
+loadMoreButton.classList.add('loadButton');
+loadMoreButton.textContent = 'Load More';
 
-let currentPage = 1;
-let currentQuery = '';
-let totalHits = 0;
-const perPage = 15;
+let lightbox = new SimpleLightbox('.gallery a', {
+  captionsData: 'alt',
+  captionDelay: 250,
+});
 
-// Находим кнопку с текстом "Load More" и добавляем нужные классы
-const loadMoreBtnElement = Array.from(document.querySelectorAll('button'))
-  .find(btn => btn.textContent.trim() === 'Load More');
+export const searchImageForm = document.querySelector('.photo');
+let page = 1;
+let newUserSearching = '';
 
-if (loadMoreBtnElement) {
-  loadMoreBtnElement.classList.add('load-more', 'hidden');
-}
-
-const loadMoreBtn = document.querySelector('.load-more');
-
-form.addEventListener('submit', async (event) => {
+searchImageForm.addEventListener('submit', async event => {
   event.preventDefault();
-  currentQuery = event.target.searchQuery.value.trim();
-  currentPage = 1;
-  
-  if (!currentQuery) {
-    iziToast.warning({ message: 'Please enter a search query!' });
-    return;
-  }
+  loader.style.display = 'block';
+  page = 1;
 
-  clearGallery();
-  loadMoreBtn.classList.add('hidden');
-  loader.classList.remove('hidden');
+  try {
+    gallery.innerHTML = '';
+    loadMoreButton.style.display = 'none';
 
-  // Позволяем браузеру отобразить лоадер
-  setTimeout(async () => {
-    try {
-      const data = await fetchImages(currentQuery, currentPage, perPage);
-      totalHits = data.totalHits;
-      
-      if (data.hits.length === 0) {
-        iziToast.error({ message: 'Sorry, there are no images matching your search query. Please try again!' });
-        return;
-      }
-      
-      renderImages(data.hits);
-      checkLoadMore(data);
-    } catch (error) {
-      iziToast.error({ message: error.message });
-    } finally {
-      loader.classList.add('hidden');
+    newUserSearching = searchImageForm.inputText.value.trim();
+    searchImageForm.inputText.value = newUserSearching;  //Заповнення імпута трімнутим значенням, саме те, що відправляється на бекенд
+
+    if (!newUserSearching || newUserSearching === '') {
+      iziToast.error({
+        color: '#EF4040',
+        message: 'Error, input field is empty',
+        messageColor: '#FAFAFB',
+        maxWidth: '432',
+        iconColor: '#FAFAFB',
+      });
+      return;
     }
-  }, 0);
+
+    const responseData = await getData(newUserSearching, page);
+
+    if (responseData.hits.length === 0) {
+      iziToast.error({
+        color: '#EF4040',
+        message:
+          'Sorry, there are no images matching your search query. Please, try again!',
+        messageColor: '#FAFAFB',
+        maxWidth: '432',
+        iconColor: '#FAFAFB',
+      });
+
+      return;
+    }
+
+    getPhotos(responseData.hits);
+    loadMoreButton.style.display = 'block';
+  } catch (error) {
+    console.error(error);
+  } finally {
+    loader.style.display = 'none';
+    document.body.append(loadMoreButton);
+    lightbox.refresh();
+  }
 });
 
-loadMoreBtn.addEventListener('click', () => {
-  currentPage++;
-  loader.classList.remove('hidden');
-  loadMoreBtn.classList.add('hidden');
+loadMoreButton.addEventListener('click', async event => {
+  loader.style.display = 'block';
+  loadMoreButton.style.display = 'none';
 
-  // Обновление лоадера перед выполнением запроса
-  setTimeout(async () => {
-    try {
-      const data = await fetchImages(currentQuery, currentPage, perPage);
-      renderImages(data.hits);
-      checkLoadMore(data);
-      smoothScroll();
-    } catch (error) {
-      iziToast.error({ message: error.message });
-    } finally {
-      loader.classList.add('hidden');
+  try {
+    page++;
+    const responseData = await getData(newUserSearching, page);
+    const oldImageCount = gallery.children.length;
+
+    getPhotos(responseData.hits);
+
+    if (responseData.totalHits <= gallery.children.length) {
+      iziToast.info({
+        message: `We're sorry, but you've reached the end of search results.`,
+      });
+
+      return;
     }
-  }, 0);
-});
-
-function checkLoadMore(data) {
-  const totalLoaded = currentPage * perPage;
-  if (totalLoaded >= totalHits) {
-    iziToast.info({ message: "End of results" });
-    loadMoreBtn.classList.add('hidden');
-  } else {
-    loadMoreBtn.classList.remove('hidden');
-  }
-}
-
-function smoothScroll() {
-  const galleryItem = gallery.firstElementChild;
-  if (galleryItem) {
-    const { height } = galleryItem.getBoundingClientRect();
+    const newList = document.querySelectorAll('.image');
+    const newFirstImage = newList[oldImageCount];
+    const rect = newFirstImage.getBoundingClientRect();
     window.scrollBy({
-      top: height * 2,
-      behavior: 'smooth'
+      top: rect.top - 20,
+      behavior: 'smooth',
     });
+
+    loadMoreButton.style.display = 'block';
+  } catch (error) {
+    console.error(error);
+  } finally {
+    loader.style.display = 'none';
+    lightbox.refresh();
   }
-}
+});

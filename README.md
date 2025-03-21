@@ -1,1 +1,1 @@
-HomeWork JavaScript 12
+HomeWork JAVASCRIPT 12
