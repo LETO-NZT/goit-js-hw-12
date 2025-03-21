@@ -17,7 +17,7 @@ let lightbox = new SimpleLightbox('.gallery a', {
   captionDelay: 250,
 });
 
-export const searchImageForm = document.querySelector('.photo');
+export const searchImageForm = document.querySelector('.form');
 let page = 1;
 let newUserSearching = '';
 
