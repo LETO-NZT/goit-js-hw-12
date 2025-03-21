@@ -1,4 +1,4 @@
-import { getData } from './js/pixebay-api';
+import { getData } from './js/pixabay-api';
 import { getPhotos } from './js/render-functions';
 import iziToast from 'izitoast';
 import 'izitoast/dist/css/iziToast.min.css';
