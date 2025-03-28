@@ -1,3 +1,4 @@
+# yaml-language-server: $schema=https://json.schemastore.org/github-workflow.json
 name: Build and deploy to GitHub Pages
 
 on:
@@ -9,7 +10,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout 🛎️
-        uses: actions/checkout@v2.3.1
+        uses: actions/checkout@v4  # Оновлено до актуальної версії
 
       - name: Install and build 🔧
         run: |
@@ -19,6 +20,6 @@ jobs:
       - name: Deploy 🚀
         uses: JamesIves/github-pages-deploy-action@4.1.0
         with:
-          token: ${{ secrets.DEPLOY_TOKEN }}  # Додано токен
+          token: ${{ secrets.DEPLOY_TOKEN }}  # Використання нового токена
           branch: gh-pages
           folder: dist
