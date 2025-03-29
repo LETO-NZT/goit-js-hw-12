@@ -1,6 +1,6 @@
 function init() {
   const form = document.querySelector(".form");
-  const input = document.querySelector("input[name='search-text']");
+  const input = document.querySelector("input[name='search-query']"); // исправлено здесь
   const loadMoreBtn = document.querySelector(".load-more");
 
   if (!form || !input) {
