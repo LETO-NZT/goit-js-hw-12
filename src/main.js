@@ -4,7 +4,7 @@ import iziToast from 'izitoast';
 
 function init() {
   const form = document.querySelector(".form");
-  const input = document.querySelector("input[name='search-query']");
+  const input = document.querySelector("input[name='search-input']");
   const loadMoreBtn = document.querySelector(".load-more");
 
   if (!form || !input) {
