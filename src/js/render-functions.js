@@ -3,20 +3,20 @@ import 'izitoast/dist/css/iziToast.min.css';
 import SimpleLightbox from "simplelightbox";
 import "simplelightbox/dist/simple-lightbox.min.css";
 
-
 const gallery = document.querySelector(".gallery");
 const loader = document.querySelector(".loader");
 
+if (!gallery) {
+  console.error("Error: '.gallery' element not found!");
+}
 if (!loader) {
   console.error("Error: '.loader' element not found!");
 }
-
 
 let lightbox = new SimpleLightbox(".gallery a", {
   captionsData: "alt",
   captionDelay: 250,
 });
-
 
 export function showLoader(underButton = false) {
   if (!loader) return;
@@ -26,9 +26,9 @@ export function showLoader(underButton = false) {
   } else {
     loader.classList.remove("loader--under-button");
   }
- 
   loader.style.display = "block";
 }
+
 export function hideLoader() {
   if (!loader) return;
   loader.style.display = "none";
@@ -37,8 +37,6 @@ export function hideLoader() {
 export function clearGallery() {
   gallery.innerHTML = "";
 }
-
-
 
 
 export function renderImages(images) {
@@ -51,9 +49,8 @@ export function renderImages(images) {
   }
 
   const markup = images
-  .map(({ webformatURL, largeImageURL, tags, likes, views, comments, downloads }) => {
-    const truncatedTags = tags.split(", ").slice(0, 3).join(", ");
-    
+    .map(({ webformatURL, largeImageURL, tags, likes, views, comments, downloads }) => {
+      const truncatedTags = tags.split(", ").slice(0, 3).join(", ");
       return `
       <li class="gallery-item">
         <a href="${largeImageURL}" class="gallery-link" data-caption="${truncatedTags}">
@@ -66,7 +63,7 @@ export function renderImages(images) {
           <p><b>Downloads</b> ${downloads}</p>
         </div>
       </li>`;
-  })
+    })
     .join('');
 
   gallery.insertAdjacentHTML('beforeend', markup);
