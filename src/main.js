@@ -1,6 +1,10 @@
+import { fetchImages } from './js/pixabay-api';
+import { renderImages, clearGallery, showLoader, hideLoader } from './js/render-functions.js';
+import iziToast from 'izitoast'; 
+
 function init() {
   const form = document.querySelector(".form");
-  const input = document.querySelector("input[name='search-query']"); // исправлено здесь
+  const input = document.querySelector("input[name='search-query']");
   const loadMoreBtn = document.querySelector(".load-more");
 
   if (!form || !input) {
@@ -108,5 +112,5 @@ function init() {
   }
 }
 
-// Запуск инициализации
+
 init();
