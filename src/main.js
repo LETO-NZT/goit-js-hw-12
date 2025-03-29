@@ -6,10 +6,11 @@ import 'simplelightbox/dist/simple-lightbox.min.css';
 import iziToast from 'izitoast';
 import 'izitoast/dist/css/iziToast.min.css';
 
-  const form = document.querySelector(".form");
-  const input = document.querySelector("input[name='search-text']");
-  const loadMoreBtn = document.querySelector(".load-more");
-  if (!form || !searchInput) return;
+const form = document.querySelector(".form");
+const input = document.querySelector("input[name='search-text']");
+const loadMoreBtn = document.querySelector(".load-more");
+if (!form || !input) return;
+
 
   let currentPage = 1;
   let currentQuery = '';
